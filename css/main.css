@@ -217,6 +217,19 @@ p{margin:0 0 1.05em}
 .callout-k small{display:block;font-family:var(--body);font-size:.72rem;letter-spacing:0;
   text-transform:none;color:var(--ink-3);margin-top:.2rem}
 
+/* ---------- collapsible project detail ---------- */
+.project.collapsed .pd{display:none}
+.see-more{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.6rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);background:none;border:0;border-bottom:1px solid var(--rule);
+  padding:0 0 .28rem;cursor:pointer;transition:color .2s,border-color .2s}
+.see-more:hover{border-color:var(--accent)}
+.see-more:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.see-more-ico{width:0;height:0;border-inline:5px solid transparent;
+  border-top:6px solid currentColor;transition:transform .25s var(--ease)}
+.project:not(.collapsed) .see-more-ico{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.see-more-ico{transition:none}}
+
 /* ---------- chips ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
 .chip{font-family:var(--mono);font-size:.67rem;letter-spacing:.05em;padding:.34rem .6rem;
@@ -461,7 +474,8 @@ p{margin:0 0 1.05em}
     --rule:#999;--rule-2:#ccc;--accent:#1a3fa0;--accent-soft:#fff;--grid-line:transparent}
   @page{margin:14mm}
   body{font-size:10.5pt;line-height:1.45;overflow:visible}
-  .nav,.frame,.tbtn,.filters,.lb,.skip,.cad-tools,.cad-note,.hero-cta,.cad-state{display:none !important}
+  .nav,.frame,.tbtn,.filters,.lb,.skip,.cad-tools,.cad-note,.hero-cta,.cad-state,.see-more{display:none !important}
+  .project.collapsed .pd{display:block !important}
   .hero{padding-block:0 1rem}
   .hero::before{display:none}
   .name{font-size:34pt}

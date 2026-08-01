@@ -207,7 +207,21 @@
       (p.award.link ? ' <a href="' + esc(p.award.link) + '" target="_blank" rel="noopener">' +
         esc(p.award.linkLabel || "Source") + "</a>." : "") + "</p></div></div>" : "";
 
-    return '<article class="project" id="p-' + esc(p.id) + '" data-cats="' +
+    // wordy blocks collapse behind a toggle; visuals (gallery/cad/svg) stay visible
+    var VISUAL = { gallery: 1, cad: 1, svg: 1 };
+    var hasDetail = (p.blocks || []).some(function (b) { return !VISUAL[b.t]; });
+    var bodyHtml = (p.blocks || []).map(function (b) {
+      var html = block(b, p.id);
+      return VISUAL[b.t] ? html : html.replace('class="', 'class="pd ', 1);
+    }).join("");
+    var seeMore = hasDetail
+      ? '<button class="see-more" type="button" data-toggle-project aria-expanded="false">' +
+          '<span class="see-more-txt">See project details</span>' +
+          '<span class="see-more-ico" aria-hidden="true"></span></button>'
+      : "";
+
+    return '<article class="project' + (hasDetail ? " collapsed" : "") +
+      '" id="p-' + esc(p.id) + '" data-cats="' +
       esc((p.categories || []).join("|")) + '">' +
       (i ? dim("Next project").replace('dim rise', 'dim rise proj-div') : "") +
       '<div class="p-head"><div class="rise">' +
@@ -218,7 +232,7 @@
       '</div><div class="rise"><div class="rail">' + metrics + "</div></div></div>" +
       award +
       '<div class="tblock rise">' + tb + "</div>" +
-      '<div class="body-col">' + (p.blocks || []).map(function (b) { return block(b, p.id); }).join("") + "</div>" +
+      '<div class="body-col">' + bodyHtml + seeMore + "</div>" +
       '<div class="chips rise">' + chips + "</div>" +
       "</article>";
   }
@@ -501,6 +515,29 @@
       var t = b.textContent; b.textContent = "Copied";
       setTimeout(function () { b.textContent = t; }, 1600);
     });
+  });
+
+  /* ---------- project details: collapse / expand ----------------------- */
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest ? e.target.closest("[data-toggle-project]") : null;
+    if (!btn) return;
+    var art = btn.closest(".project");
+    if (!art) return;
+    var open = art.classList.toggle("collapsed") === false;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.querySelector(".see-more-txt").textContent =
+      open ? "Hide details" : "See project details";
+    if (open) {
+      // force revealed blocks to their shown state (IntersectionObserver never fired while hidden)
+      [].slice.call(art.querySelectorAll(".pd")).forEach(function (el) {
+        el.classList.add("in");
+        [].slice.call(el.querySelectorAll(".rise")).forEach(function (r) { r.classList.add("in"); });
+      });
+    } else {
+      // scroll the project header back into view when collapsing
+      var top = art.getBoundingClientRect().top;
+      if (top < 0) art.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 
   /* ---------- inline the SVG diagrams so CSS variables apply ------------ */
