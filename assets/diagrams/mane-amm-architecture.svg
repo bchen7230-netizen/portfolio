@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" role="img" aria-label="Architecture: ControlLogix PLC, material-handling SQL Server, CMMS and ticket sources feed a supervised poller layer, which feeds the MANE status wall and the AMM shift command page, exposed through a TLS host.">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="sch-fill"/>
+    </marker>
+  </defs>
+
+  <text x="88" y="62"  class="sch-t k" text-anchor="end">L1 FIELD</text>
+  <text x="88" y="176" class="sch-t k" text-anchor="end">L2 ACQUIRE</text>
+  <text x="88" y="291" class="sch-t k" text-anchor="end">L3 BOARDS</text>
+  <text x="88" y="412" class="sch-t k" text-anchor="end">L4 ACCESS</text>
+
+  <rect x="96"  y="34" width="200" height="56" class="sch-box a"/>
+  <text x="196" y="56" class="sch-t c" text-anchor="middle">CONTROLLOGIX PLC</text>
+  <text x="196" y="74" class="sch-t k" text-anchor="middle">ETHERNET/IP CIP TAGS</text>
+
+  <rect x="324" y="34" width="200" height="56" class="sch-box"/>
+  <text x="424" y="56" class="sch-t" text-anchor="middle">MHE SQL SERVER</text>
+  <text x="424" y="74" class="sch-t k" text-anchor="middle">JAM / FAULT / DOWNTIME</text>
+
+  <rect x="552" y="34" width="200" height="56" class="sch-box"/>
+  <text x="652" y="56" class="sch-t" text-anchor="middle">CMMS</text>
+  <text x="652" y="74" class="sch-t k" text-anchor="middle">WORK ORDERS + PM</text>
+
+  <rect x="780" y="34" width="200" height="56" class="sch-box"/>
+  <text x="880" y="56" class="sch-t" text-anchor="middle">TICKET + LABOUR</text>
+  <text x="880" y="74" class="sch-t k" text-anchor="middle">QUEUE + BOOKED HRS</text>
+
+  <line x1="196" y1="90" x2="196" y2="148" class="sch-l" marker-end="url(#ar)"/>
+  <line x1="424" y1="90" x2="424" y2="148" class="sch-l" marker-end="url(#ar)"/>
+  <line x1="652" y1="90" x2="652" y2="148" class="sch-l" marker-end="url(#ar)"/>
+  <line x1="880" y1="90" x2="880" y2="148" class="sch-l" marker-end="url(#ar)"/>
+
+  <rect x="96" y="150" width="884" height="54" class="sch-box"/>
+  <text x="538" y="171" class="sch-t" text-anchor="middle">SUPERVISED POLLER LAYER &#8212; RATE-LIMITED READS, STALENESS GUARD, AUTO-RESTART</text>
+  <text x="538" y="191" class="sch-t k" text-anchor="middle">PLC 1&#8211;5 s &#183; SQL WINDOWED &#183; JAM COALESCING &#183; TICKET DEDUPE &#183; SNAPSHOT PUSH</text>
+
+  <line x1="306" y1="204" x2="306" y2="246" class="sch-l" marker-end="url(#ar)"/>
+  <line x1="770" y1="204" x2="770" y2="246" class="sch-l" marker-end="url(#ar)"/>
+
+  <rect x="96" y="248" width="420" height="80" class="sch-box"/>
+  <text x="306" y="278" class="sch-t lg" text-anchor="middle">MANE</text>
+  <text x="306" y="300" class="sch-t k" text-anchor="middle">LIVE EQUIPMENT STATUS WALL</text>
+
+  <rect x="560" y="248" width="420" height="80" class="sch-box a"/>
+  <text x="770" y="278" class="sch-t c lg" text-anchor="middle">AMM</text>
+  <text x="770" y="300" class="sch-t k" text-anchor="middle">SHIFT COMMAND PAGE</text>
+
+  <path d="M516 288 L560 288" class="sch-l dash"/>
+  <text x="538" y="278" class="sch-t k" text-anchor="middle">30 s</text>
+
+  <path d="M306 328 L306 358 L470 358 L470 384" class="sch-l" marker-end="url(#ar)"/>
+  <path d="M770 328 L770 358 L606 358 L606 384" class="sch-l" marker-end="url(#ar)"/>
+
+  <rect x="310" y="386" width="456" height="54" class="sch-box a"/>
+  <text x="538" y="407" class="sch-t c" text-anchor="middle">TLS HOST &#8212; TOKEN-AUTHENTICATED WRITES</text>
+  <text x="538" y="427" class="sch-t k" text-anchor="middle">PHONE &#183; LAPTOP &#183; FLOOR TERMINAL</text>
+
+  <line x1="30" y1="34"  x2="30" y2="440" class="sch-l" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <line x1="24" y1="34"  x2="36" y2="34"  class="sch-l"/>
+  <line x1="24" y1="440" x2="36" y2="440" class="sch-l"/>
+</svg>

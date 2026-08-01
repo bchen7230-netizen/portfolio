@@ -1,0 +1,11 @@
+# personal build checklist / working notes — not for the public repo
+YOUR-TODO.txt
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editor
+.vscode/
+*.swp
