@@ -35,7 +35,7 @@ window.PORTFOLIO = {
     email: "bchen7230@gmail.com",
     phone: "(646) 410-5180",
     showPhone: true,
-    resume: "assets/docs/brandon-chen-resume.pdf",
+    resume: "assets/docs/brandon-chen-resume.pdf?v=20260806a",
     portrait: { stem: "portrait", widths: [700, 1100], alt: "Brandon Chen" },
     bleed:    { stem: "aurora-bleed", widths: [1200, 1900], alt: "Aurora over a harbour at night" },
     social: "assets/images/social-card.jpg",
