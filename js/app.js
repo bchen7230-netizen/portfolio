@@ -58,6 +58,7 @@
     return '<header class="hero" id="top"><div class="wrap">' +
       '<div class="hero-grid">' +
         '<div data-stagger>' +
+          (m.site ? '<p class="doc-link" style="animation-delay:.02s">' + esc(m.site.replace(/^https?:\/\//,'').replace(/\/$/,'')) + '</p>' : '') +
           '<div class="eyebrow" style="animation-delay:.05s"><span class="label">' +
             esc(m.role) + " &middot; " + esc(m.credential || m.subtitle) + "</span></div>" +
           '<h1 class="name" style="animation-delay:.12s">' + esc(m.firstName) +

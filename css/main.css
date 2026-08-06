@@ -123,6 +123,7 @@ p{margin:0 0 1.05em}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(200px,25vw,340px);
   gap:clamp(1.5rem,4vw,4rem);align-items:end}
 @media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.doc-link{display:none}
 .eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:clamp(1rem,2.5vw,1.75rem)}
 .eyebrow::after{content:"";height:1px;flex:1;background:var(--rule)}
 .name{font-size:clamp(3.1rem,12.2vw,10.5rem);font-weight:800;line-height:.84;
@@ -476,15 +477,29 @@ p{margin:0 0 1.05em}
   body{font-size:10.5pt;line-height:1.45;overflow:visible}
   .nav,.frame,.tbtn,.filters,.lb,.skip,.cad-tools,.cad-note,.hero-cta,.cad-state,.see-more{display:none !important}
   .project.collapsed .pd{display:block !important}
-  .hero{padding-block:0 1rem}
+  .hero{padding-block:0;display:flex;flex-direction:column;justify-content:center;min-height:242mm}
   .hero::before{display:none}
-  .name{font-size:34pt}
-  .dim{margin-block:1.2rem .8rem;break-after:avoid}
+  .hero-grid{grid-template-columns:minmax(0,1fr) 235px !important;gap:1.7rem;align-items:start}
+  .portrait img{max-height:108mm;object-fit:cover}
+  .portrait::after{inset:-4px}
+  .name{font-size:40pt;line-height:.9}
+  .tagline{margin-top:1rem;max-width:32ch}
+  .hero-award{margin-top:1.1rem}
+  .facts{margin-top:1.5rem}
+  .facts > div{padding-block:.7rem}
+  .doc-link{display:block;font-family:var(--mono);font-size:8pt;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+  .dim{margin-block:1.2rem .8rem}
   .project,.tl-item,.sk,.code,.schematic,.award{break-inside:avoid}
   .project{padding-block:0;page-break-before:always}
   .project:first-of-type{page-break-before:avoid}
   .rise,[data-stagger] > *{opacity:1 !important;translate:none !important;animation:none !important}
   .shot img{max-height:70mm}
+  .subhead{margin-block:1.4rem .7rem}
+  .callout{padding-block:.6rem}
+  .award{margin-block:1rem}
+  .units{grid-template-columns:1fr 1fr !important;gap:1.2rem}
+  .tl-item{padding-bottom:1.2rem}
   .cad-stage{display:none}
   a[href^="http"]::after{content:" (" attr(href) ")";font-family:var(--mono);font-size:7pt;
     color:#555;word-break:break-all}

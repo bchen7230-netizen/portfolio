@@ -33,6 +33,7 @@ window.PORTFOLIO = {
     },
     location: "Woodside, New York",
     email: "bchen7230@gmail.com",
+    site: "https://bchen7230-netizen.github.io/portfolio/",
     phone: "(646) 410-5180",
     showPhone: true,
     resume: "assets/docs/brandon-chen-resume.pdf?v=20260806c",
