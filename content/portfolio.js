@@ -26,6 +26,11 @@ window.PORTFOLIO = {
     tagline: "I build the machine, and the thing that watches the machine.",
     role: "Mechanical Engineering",
     subtitle: "Project Portfolio",
+    credential: "Amazon RME 2026",
+    heroAward: {
+      text: "Top People's Choice Award, Amazon Global AI Solutions Expo 2026",
+      sub: "One of four RME intern projects recognised out of 200+ submissions across the company."
+    },
     location: "Woodside, New York",
     email: "bchen7230@gmail.com",
     phone: "(646) 410-5180",
@@ -40,7 +45,7 @@ window.PORTFOLIO = {
       { label: "Email",    url: "mailto:bchen7230@gmail.com" }
     ],
     seo: {
-      title: "Brandon Chen — Mechanical Engineering Portfolio",
+      title: "Brandon Chen — Mechanical Engineering Portfolio | Amazon RME 2026",
       description: "Mechanical engineering student at New York City College of Technology. Industrial controls, PLC and SCADA integration, CAD/CAM, embedded robotics. People's Choice Award, Amazon Global AI Solutions Expo 2026."
     }
   },
@@ -48,6 +53,7 @@ window.PORTFOLIO = {
   theme: { accent: "blueprint", mode: "light" },
 
   facts: [
+    { k: "Recent", v: "Amazon RME Intern, 2026" },
     { k: "Institution", v: "NYC College of Technology" },
     { k: "Degree",      v: "B.S. Mechanical Eng." },
     { k: "Graduating",  v: "May 2027", mono: true },
@@ -60,14 +66,14 @@ window.PORTFOLIO = {
     pitch: "Mechanical engineering student who works where the hardware and the data have to agree with each other.",
     body: [
       "I am a mechanical engineering student at New York City College of Technology, graduating in 2027. The part of engineering I keep coming back to is the seam between the physical and the digital: a controller that says a conveyor is running, a database that says it jammed, and a technician who needs to know which one to believe.",
-      "Most recently that meant a summer inside Amazon's Reliability and Maintenance Engineering organisation, where I built two production dashboards that read equipment state directly off the plant floor's PLCs and put five separate systems onto one page. It won the Top People's Choice Award at Amazon's Global AI Solutions Expo.",
+      "Most recently that meant a summer inside Amazon's Reliability and Maintenance Engineering organisation, where I built two production dashboards that read equipment state directly off the plant floor's PLCs and put five separate systems onto one page. It won the Top People's Choice Award at Amazon's Global AI Solutions Expo 2026, recognised out of more than 200 submissions across the company.",
       "Before that I was diagnosing electromechanical faults on hospital imaging and monitoring equipment, which is where I learned that most of what gets called broken is really nobody having looked at it in the right order.",
       "I am comfortable with a micrometer, a torque wrench, a ladder diagram and a SQL query. I think that combination is the point, not a coincidence."
     ],
     highlights: [
       { v: "Top",  k: "People's Choice Award, Amazon Global AI Solutions Expo 2026" },
-      { v: "2",    k: "Fulfillment centres running the dashboards I built" },
-      { v: "3.60", k: "GPA while shipping production software" }
+      { v: "2",    k: "Amazon fulfillment centres running the dashboards I built" },
+      { v: "200+", k: "Submissions worldwide; four RME projects recognised" }
     ]
   },
 

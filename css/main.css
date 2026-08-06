@@ -490,3 +490,9 @@ p{margin:0 0 1.05em}
     color:#555;word-break:break-all}
   .foot{border-top:1px solid #999}
 }
+/* hero award banner (Amazon People's Choice) */
+.hero-award{display:flex;gap:.7rem;align-items:flex-start;margin-top:clamp(1.1rem,2.5vw,1.6rem);
+  padding:.72rem .95rem;border:1px solid var(--accent);background:var(--accent-soft);max-width:56ch}
+.hero-award svg{flex:none;width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.5;margin-top:.12rem}
+.hero-award strong{display:block;font-size:.98rem;line-height:1.28;color:var(--ink)}
+.hero-award span{display:block;margin-top:.22rem;font-size:.82rem;color:var(--ink-2);line-height:1.35}

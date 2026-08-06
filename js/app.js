@@ -59,10 +59,11 @@
       '<div class="hero-grid">' +
         '<div data-stagger>' +
           '<div class="eyebrow" style="animation-delay:.05s"><span class="label">' +
-            esc(m.role) + " &mdash; " + esc(m.subtitle) + "</span></div>" +
+            esc(m.role) + " &middot; " + esc(m.credential || m.subtitle) + "</span></div>" +
           '<h1 class="name" style="animation-delay:.12s">' + esc(m.firstName) +
             "<em>" + esc(m.lastName) + "</em></h1>" +
           '<p class="lede tagline" style="animation-delay:.24s">' + rich(m.tagline) + "</p>" +
+          (m.heroAward ? '<div class="hero-award" style="animation-delay:.3s">' + AWARD_ICON + '<div><strong>' + rich(m.heroAward.text) + '</strong>' + (m.heroAward.sub ? '<span>' + rich(m.heroAward.sub) + '</span>' : '') + '</div></div>' : '') +
           '<div class="hero-cta" style="animation-delay:.34s">' +
             '<a class="btn" href="#projects">See the work</a>' + resume +
             (li ? '<a class="btn" href="' + esc(li.url) + '" target="_blank" rel="noopener">LinkedIn</a>' : "") +
