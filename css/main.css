@@ -524,6 +524,7 @@ p{margin:0 0 1.05em}
   text-transform:uppercase;color:var(--ink-3)}
 .reg-row{position:relative;padding:1.15rem 0;border-bottom:1px solid var(--rule-2);
   text-decoration:none;color:inherit;transition:background .18s var(--ease)}
+.reg-row[hidden]{display:none}
 .reg-row:hover,.reg-row:focus-visible{background:var(--accent-soft);outline:none}
 .reg-row:hover .reg-title,.reg-row:focus-visible .reg-title{color:var(--accent)}
 .reg-row:hover .reg-go,.reg-row:focus-visible .reg-go{transform:translateX(4px);color:var(--accent)}

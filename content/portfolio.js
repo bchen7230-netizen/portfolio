@@ -368,7 +368,8 @@ window.PORTFOLIO = {
   ],
 
   certifications: [
-    { name: "Basic CNC Programming and CAM Fundamentals", issuer: "SolidProfessor / Mastercam Training", year: "2025" }
+    { name: "Basic CNC Programming and CAM Fundamentals", issuer: "SolidProfessor / Mastercam Training", year: "2025" },
+    { name: "NFPA 70E: Electrical Safety in the Workplace (2024 Series)", issuer: "NFPA", year: "2026" }
   ],
 
   coursework: [
@@ -447,7 +448,7 @@ window.PORTFOLIO = {
 
   contact: {
     heading: "Get in touch",
-    text: "Looking for mechanical engineering internships and co-ops, especially anything touching controls, automation or manufacturing.",
+    text: "Looking for mechanical engineering internships and co-ops, especially anything touching controls, automation, robotics, design, process or manufacturing.",
     cta: "Email me"
   }
 };
