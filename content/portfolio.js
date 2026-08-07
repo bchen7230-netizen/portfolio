@@ -121,6 +121,22 @@ window.PORTFOLIO = {
         ]},
         { t: "svg", src: "assets/diagrams/mane-amm-architecture.svg", caption: "Field layer to access layer", scale: "N.T.S." },
 
+        { t: "h", text: "What it looks like" },
+        { t: "p", text: "A self-contained demo build of both dashboards, running on synthetic data &mdash; no real facility, equipment, personnel or ticket information. The walkthrough runs the MANE equipment status wall top to bottom, then the AMM shift command page." },
+        { t: "gallery", media: [
+          { type: "video", src: "assets/video/mane-amm-walkthrough.mp4", poster: "assets/video/mane-amm-poster.jpg",
+            span: 12, ratio: "16/9", caption: "Fig. 3 — Walkthrough: MANE equipment status wall, then the AMM shift command page (demo data)" },
+          { type: "image", stem: "mane-board", widths: [800,1400,2000], span: 6, ratio: "3/2",
+            alt: "MANE live equipment status wall showing 122 of 130 assets online with jam, partial and inoperable states across the building",
+            caption: "Fig. 4 — MANE: live equipment status wall, whole building at a glance" },
+          { type: "image", stem: "amm-briefing", widths: [800,1400,2000], span: 6, ratio: "3/2",
+            alt: "AMM auto-generated shift handoff briefing listing actively-down equipment, open tickets and shift priorities",
+            caption: "Fig. 5 — AMM: auto-generated shift-handoff briefing" },
+          { type: "image", stem: "amm-board", widths: [800,1400,2000], span: 12, ratio: "16/9",
+            alt: "AMM shift command page with shift priorities, actively-down equipment, open tickets and PM compliance",
+            caption: "Fig. 6 — AMM: shift command page — priorities, actively-down equipment, tickets and PM compliance" }
+        ]},
+
         { t: "h", n: "01.1", text: "Reading the machine: PLC and SCADA integration" },
         { t: "cols", groups: [
           [ "<b>Learned ladder logic</b> to understand how the controllers actually execute, so I could find the rungs that set fault and status bits and know which tags were worth trusting.",
