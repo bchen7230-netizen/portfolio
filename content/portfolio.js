@@ -36,7 +36,7 @@ window.PORTFOLIO = {
     site: "https://bchen7230-netizen.github.io/portfolio/",
     phone: "(646) 410-5180",
     showPhone: true,
-    resume: "assets/docs/brandon-chen-resume.pdf?v=20260806j",
+    resume: "assets/docs/brandon-chen-resume.pdf?v=20260806k",
     portrait: { stem: "portrait", widths: [700, 1100], alt: "Brandon Chen" },
     bleed:    { stem: "aurora-bleed", widths: [1200, 1900], alt: "Aurora over a harbour at night" },
     social: "assets/images/social-card.jpg",
