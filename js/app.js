@@ -176,7 +176,7 @@
   }
 
   /* ---------- one project ----------------------------------------------- */
-  function project(p, i) {
+  function project(p, i, asPage) {
     var n = String(i + 1).padStart(2, "0");
     var metrics = (p.metrics || []).map(function (m) {
       return '<div class="callout"><span class="callout-v">' + rich(m.v) + "</span>" +
@@ -211,10 +211,10 @@
 
     // wordy blocks collapse behind a toggle; visuals (gallery/cad/svg) stay visible
     var VISUAL = { gallery: 1, cad: 1, svg: 1 };
-    var hasDetail = (p.blocks || []).some(function (b) { return !VISUAL[b.t]; });
+    var hasDetail = !asPage && (p.blocks || []).some(function (b) { return !VISUAL[b.t]; });
     var bodyHtml = (p.blocks || []).map(function (b) {
       var html = block(b, p.id);
-      return VISUAL[b.t] ? html : html.replace('class="', 'class="pd ', 1);
+      return (VISUAL[b.t] || asPage) ? html : html.replace('class="', 'class="pd ', 1);
     }).join("");
     var seeMore = hasDetail
       ? '<button class="see-more" type="button" data-toggle-project aria-expanded="false">' +
@@ -225,7 +225,7 @@
     return '<article class="project' + (hasDetail ? " collapsed" : "") +
       '" id="p-' + esc(p.id) + '" data-cats="' +
       esc((p.categories || []).join("|")) + '">' +
-      (i ? dim("Next project").replace('dim rise', 'dim rise proj-div') : "") +
+      (i && !asPage ? dim("Next project").replace('dim rise', 'dim rise proj-div') : "") +
       '<div class="p-head"><div class="rise">' +
         '<div class="p-num">' + n + "</div>" +
         '<p class="p-sub">' + esc((p.categories || []).join(" \u00b7 ")) + "</p>" +
@@ -239,6 +239,64 @@
       "</article>";
   }
 
+  /* ---------- register index: thumbnail + row + page wrapper ----------- */
+  function projThumb(p) {
+    var img = null, hasVid = false;
+    var hasCad = (p.blocks || []).some(function (b) { return b.t === "cad"; });
+    var g = (p.blocks || []).filter(function (b) { return b.t === "gallery"; })[0];
+    if (g) {
+      (g.media || []).forEach(function (m) {
+        if (m.type === "image" && !img) img = m;
+        if (m.type === "video") hasVid = true;
+      });
+    }
+    var badge = hasCad ? "3D" : (hasVid ? "VIDEO" : "");
+    var inner = img
+      ? '<img src="assets/images/' + esc(img.stem) + "-" + (img.widths || [800])[0] +
+          '.webp" alt="" loading="lazy" decoding="async">'
+      : '<span class="reg-noimg">no preview</span>';
+    return '<span class="reg-thumb">' + inner +
+      (badge ? '<span class="reg-badge">' + badge + "</span>" : "") + "</span>";
+  }
+
+  function regRow(p, i) {
+    var sheet = "P-" + String(i + 1).padStart(3, "0");
+    var cat0 = (p.categories || [])[0] || "";
+    var sub = (p.tools || []).slice(0, 3).map(function (t) {
+      return t.split(" \u00b7 ")[0].split(" / ")[0];
+    });
+    if (!sub.length) sub = (p.categories || []).slice(1);
+    var field = (cat0 ? '<span class="reg-tag">' + esc(cat0) + "</span>" : "") +
+      (sub.length ? '<span class="reg-sub">' + esc(sub.join(" \u00b7 ")) + "</span>" : "");
+    return '<a class="reg-row rise" href="#project=' + esc(p.id) + '" data-cats="' +
+      esc((p.categories || []).join("|")) + '" aria-label="' + esc(p.title) + '">' +
+      '<span class="reg-sheet mono">' + sheet + "</span>" +
+      projThumb(p) +
+      '<span class="reg-main"><span class="reg-title">' + esc(p.title) + "</span>" +
+        '<span class="reg-scope">' + rich(p.summary) + "</span></span>" +
+      '<span class="reg-field">' + field + "</span>" +
+      '<span class="reg-year mono">' + esc(p.year || "") + "</span>" +
+      '<span class="reg-go" aria-hidden="true">&rarr;</span>' +
+      "</a>";
+  }
+
+  function projectPage(p, i) {
+    var prev = (D.projects || [])[i - 1], next = (D.projects || [])[i + 1];
+    var sheet = "P-" + String(i + 1).padStart(3, "0");
+    var flip = '<nav class="pv-flip" aria-label="Project navigation">' +
+      (prev ? '<a href="#project=' + esc(prev.id) + '"><span class="label">Previous</span>' +
+        '<span class="pv-flip-t">' + esc(prev.title) + "</span></a>" : "<span></span>") +
+      (next ? '<a class="nx" href="#project=' + esc(next.id) + '"><span class="label">Next</span>' +
+        '<span class="pv-flip-t">' + esc(next.title) + "</span></a>" : "<span></span>") +
+      "</nav>";
+    return '<div class="wrap pv-wrap"><div class="pv-top">' +
+        '<a class="pv-back" href="#projects"><span aria-hidden="true">&larr;</span> All projects</a>' +
+        '<span class="pv-sheet mono">' + sheet + " / " + String((D.projects || []).length).padStart(3, "0") + "</span>" +
+      "</div>" +
+      project(p, i, true) +
+      flip + "</div>";
+  }
+
   function projects() {
     var cats = {};
     (D.projects || []).forEach(function (p) {
@@ -250,9 +308,12 @@
         return '<button class="fbtn" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
       }).join("") +
       '<span class="fcount" data-fcount></span></div>';
-    var items = (D.projects || []).map(function (p, i) { return project(p, i); }).join("");
+    var head = '<div class="reg-head" aria-hidden="true">' +
+      "<span>Sheet</span><span>View</span><span>Title &amp; scope</span>" +
+      "<span>Field</span><span>Year</span><span></span></div>";
+    var rows = (D.projects || []).map(function (p, i) { return regRow(p, i); }).join("");
     return sectionHead("projects", "Selected projects") +
-      '<div class="wrap">' + fb + items + "</div></section>";
+      '<div class="wrap">' + fb + '<div class="reg">' + head + rows + "</div></div></section>";
   }
 
   /* ---------- about ------------------------------------------------------ */
@@ -384,6 +445,7 @@
   root.innerHTML = nav() + hero() +
     '<main id="main">' + projects() + about() + experience() + skills() +
     education() + hobbies() + contact() + "</main>" +
+    '<div id="project-view" hidden></div>' +
     '<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image">' +
       '<button class="lb-close" data-lb-close>Close &times;</button>' +
       '<figure style="margin:0"><img alt=""><figcaption></figcaption></figure></div>' +
@@ -444,30 +506,19 @@
     }
   })();
 
-  /* ---------- project filters ------------------------------------------- */
+  /* ---------- project filters (register rows) --------------------------- */
   (function () {
     var btns = [].slice.call(document.querySelectorAll("[data-cat]")),
-        arts = [].slice.call(document.querySelectorAll(".project")),
+        rows = [].slice.call(document.querySelectorAll(".reg-row")),
         count = document.querySelector("[data-fcount]");
     function apply(cat) {
       var shown = 0;
-      arts.forEach(function (a) {
+      rows.forEach(function (a) {
         var ok = cat === "*" || (a.dataset.cats || "").split("|").indexOf(cat) > -1;
         a.hidden = !ok;
         if (ok) shown++;
       });
-      var firstVisible = true;
-      arts.forEach(function (a) {
-        var d = a.querySelector(".proj-div");
-        if (!d) return;
-        if (a.hidden) return;
-        d.hidden = firstVisible;
-        firstVisible = false;
-      });
-      if (arts.length && !arts[0].hidden) {
-        var d0 = arts[0].querySelector(".proj-div"); if (d0) d0.hidden = true;
-      }
-      count.textContent = shown + " of " + arts.length + " shown";
+      if (count) count.textContent = shown + " of " + rows.length + " shown";
       btns.forEach(function (b) {
         b.setAttribute("aria-pressed", String(b.dataset.cat === cat));
       });
@@ -542,21 +593,25 @@
     }
   });
 
-  /* ---------- inline the SVG diagrams so CSS variables apply ------------ */
-  [].slice.call(document.querySelectorAll("[data-svg]")).forEach(function (fig) {
-    fetch(fig.dataset.svg).then(function (r) { return r.ok ? r.text() : ""; })
-      .then(function (t) { if (t) fig.querySelector(".svg-slot").innerHTML = t; })
-      .catch(function () {});
-  });
+  /* ---------- inline SVG diagrams (scoped, idempotent) ----------------- */
+  function inlineSvgs(scope) {
+    [].slice.call((scope || document).querySelectorAll("[data-svg]")).forEach(function (fig) {
+      if (fig.dataset.svgLoaded) return;
+      fig.dataset.svgLoaded = "1";
+      fetch(fig.dataset.svg).then(function (r) { return r.ok ? r.text() : ""; })
+        .then(function (t) { if (t) fig.querySelector(".svg-slot").innerHTML = t; })
+        .catch(function () {});
+    });
+  }
 
-  /* ---------- CAD viewer: load on demand -------------------------------- */
-  (function () {
-    var blocks = [].slice.call(document.querySelectorAll("[data-cad]"));
+  /* ---------- CAD viewer: load on demand (scoped) ---------------------- */
+  var _cadLoaded = new WeakSet();
+  function bootCad(scope) {
+    var blocks = [].slice.call((scope || document).querySelectorAll("[data-cad]"));
     if (!blocks.length) return;
-    var loaded = new WeakSet();
     function boot(el) {
-      if (loaded.has(el)) return;
-      loaded.add(el);
+      if (_cadLoaded.has(el)) return;
+      _cadLoaded.add(el);
       import("./viewer.js").then(function (m) { m.mount(el); })
         .catch(function (err) {
           console.error("viewer failed", err);
@@ -568,7 +623,7 @@
     }
     blocks.forEach(function (el) {
       var btn = el.querySelector("[data-cad-load]");
-      if (btn) btn.addEventListener("click", function () { boot(el); });
+      if (btn && !btn.dataset.wired) { btn.dataset.wired = "1"; btn.addEventListener("click", function () { boot(el); }); }
     });
     if ("IntersectionObserver" in window) {
       var vo = new IntersectionObserver(function (es) {
@@ -578,5 +633,50 @@
       }, { rootMargin: "200px" });
       blocks.forEach(function (el) { vo.observe(el); });
     }
+  }
+  inlineSvgs(document);
+  bootCad(document);
+
+  /* ---------- hash router: index <-> dedicated project pages ----------- */
+  (function () {
+    var main = document.getElementById("main"),
+        heroEl = document.querySelector(".hero"),
+        pv = document.getElementById("project-view"),
+        SECTIONS = { top: 1, projects: 1, about: 1, experience: 1, skills: 1, education: 1, contact: 1 };
+    function idxOf(id) {
+      var found = -1;
+      (D.projects || []).forEach(function (p, i) { if (p.id === id) found = i; });
+      return found;
+    }
+    function showIndex(scrollId) {
+      pv.hidden = true; pv.innerHTML = "";
+      main.hidden = false; if (heroEl) heroEl.hidden = false;
+      document.title = D.meta.seo.title;
+      if (scrollId) {
+        var el = document.getElementById(scrollId);
+        if (el) el.scrollIntoView({ block: "start" });
+      }
+    }
+    function showProject(i) {
+      var p = D.projects[i];
+      pv.innerHTML = projectPage(p, i);
+      main.hidden = true; if (heroEl) heroEl.hidden = true; pv.hidden = false;
+      [].slice.call(pv.querySelectorAll(".rise")).forEach(function (el) { el.classList.add("in"); });
+      inlineSvgs(pv); bootCad(pv);
+      window.scrollTo(0, 0);
+      document.title = p.title + " \u2014 " + D.meta.name;
+    }
+    function route() {
+      var h = location.hash || "";
+      var m = h.match(/^#project=(.+)$/);
+      if (m) {
+        var i = idxOf(decodeURIComponent(m[1]));
+        if (i >= 0) { showProject(i); return; }
+      }
+      var id = h.replace(/^#/, "");
+      showIndex(SECTIONS[id] ? id : null);
+    }
+    window.addEventListener("hashchange", route);
+    route();
   })();
 })();

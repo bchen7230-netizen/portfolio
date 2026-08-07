@@ -512,3 +512,76 @@ p{margin:0 0 1.05em}
 .hero-award svg{flex:none;width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.5;margin-top:.12rem}
 .hero-award strong{display:block;font-size:.98rem;line-height:1.28;color:var(--ink)}
 .hero-award span{display:block;margin-top:.22rem;font-size:.82rem;color:var(--ink-2);line-height:1.35}
+
+
+/* ========== Project register (drawing sheet index) ========== */
+.reg{border-top:1px solid var(--ink);margin-top:1.4rem}
+.reg-head,.reg-row{display:grid;
+  grid-template-columns:4.5rem 108px minmax(0,1fr) 13.5rem 3.6rem 1.4rem;
+  gap:1.25rem;align-items:center}
+.reg-head{padding:.55rem 0;border-bottom:1px solid var(--rule);
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
+.reg-row{position:relative;padding:1.15rem 0;border-bottom:1px solid var(--rule-2);
+  text-decoration:none;color:inherit;transition:background .18s var(--ease)}
+.reg-row:hover,.reg-row:focus-visible{background:var(--accent-soft);outline:none}
+.reg-row:hover .reg-title,.reg-row:focus-visible .reg-title{color:var(--accent)}
+.reg-row:hover .reg-go,.reg-row:focus-visible .reg-go{transform:translateX(4px);color:var(--accent)}
+.reg-row::before{content:"";position:absolute;left:0;top:0;bottom:-1px;width:2px;
+  background:var(--accent);transform:scaleY(0);transform-origin:top;
+  transition:transform .2s var(--ease)}
+.reg-row:hover::before,.reg-row:focus-visible::before{transform:scaleY(1)}
+.reg-sheet{font-size:.72rem;color:var(--ink-3);letter-spacing:.04em}
+.reg-thumb{position:relative;display:block;width:108px;aspect-ratio:16/10;
+  overflow:hidden;border:1px solid var(--rule);background:var(--paper-2)}
+.reg-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.reg-noimg{display:grid;place-items:center;width:100%;height:100%;
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3)}
+.reg-badge{position:absolute;right:0;bottom:0;background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;padding:.12rem .34rem}
+.reg-main{min-width:0}
+.reg-title{display:block;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.05rem,1.35vw,1.32rem);line-height:1.15;color:var(--ink);
+  transition:color .18s var(--ease)}
+.reg-scope{margin-top:.4rem;font-family:var(--body);font-size:.9rem;line-height:1.45;
+  color:var(--ink-2);max-width:62ch;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.reg-field{display:flex;flex-direction:column;gap:.45rem;align-items:flex-start}
+.reg-tag{border:1px solid var(--rule);font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.12em;text-transform:uppercase;padding:.16rem .42rem;color:var(--ink-2)}
+.reg-sub{font-family:var(--mono);font-size:.62rem;line-height:1.55;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-3)}
+.reg-year{font-size:.8rem;color:var(--ink-2);letter-spacing:.04em}
+.reg-go{font-size:1.1rem;color:var(--ink-3);justify-self:end;
+  transition:transform .18s var(--ease),color .18s var(--ease)}
+
+/* ========== Dedicated project page ========== */
+#project-view{min-height:60vh}
+.pv-top{display:flex;align-items:center;justify-content:space-between;
+  padding:5.5rem 0 1.4rem;border-bottom:1px solid var(--rule)}
+.pv-back{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2);text-decoration:none;transition:color .18s var(--ease)}
+.pv-back:hover{color:var(--accent)}
+.pv-sheet{font-family:var(--mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.08em}
+.pv-flip{display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+  margin:2.5rem 0 5rem;border-top:1px solid var(--rule);padding-top:1.5rem}
+.pv-flip a{text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:.35rem}
+.pv-flip .nx{text-align:right;align-items:flex-end}
+.pv-flip .label{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3)}
+.pv-flip-t{font-family:var(--display);font-weight:600;font-size:1.05rem;
+  transition:color .18s var(--ease)}
+.pv-flip a:hover .pv-flip-t{color:var(--accent)}
+
+@media (max-width:820px){
+  .reg-head{display:none}
+  .reg-row{grid-template-columns:84px minmax(0,1fr);gap:.4rem .95rem;padding:1.05rem 0}
+  .reg-thumb{width:84px;grid-column:1;grid-row:1 / 5}
+  .reg-sheet,.reg-main,.reg-field,.reg-year{grid-column:2}
+  .reg-sheet{font-size:.6rem}
+  .reg-go{display:none}
+  .pv-top{padding-top:4.5rem}
+  .pv-flip{grid-template-columns:1fr;gap:1.5rem}
+  .pv-flip .nx{text-align:left;align-items:flex-start}
+}
